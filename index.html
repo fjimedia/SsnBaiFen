@@ -1,0 +1,2053 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SanBaiFen | 汉字之道</title>
+    <style>
+        /* ===== СБРОС И БАЗОВЫЕ СТИЛИ ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-red: #962827;
+            --paper-beige: #E7E0CE;
+            --dark-beige: #CFC7B3;
+            --ink-black: #2d1b00;
+            --gold-accent: #d4af37;
+        }
+
+        body {
+            font-family: 'Shantell Sans', 'Inter', sans-serif;
+            background: var(--paper-beige);
+            color: var(--ink-black);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ===== ЛЕВАЯ ПАНЕЛЬ ===== */
+        .left-panel {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 170px;
+            background: var(--primary-red);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 30px;
+        }
+
+        .logo {
+            width: 71px;
+            height: 71px;
+            background: white;
+            border-radius: 20px;
+            margin-bottom: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Arial Black', sans-serif;
+            font-size: 32px;
+            color: var(--primary-red);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .logo:hover {
+            transform: scale(1.1) rotate(-10deg);
+        }
+
+        .social-grid {
+            margin-top: auto;
+            margin-bottom: 40px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .social-icon:hover {
+            background: white;
+            transform: translateY(-5px) rotate(5deg);
+        }
+
+        .social-icon:hover img {
+            filter: brightness(0) saturate(100%) invert(19%) sepia(72%) saturate(985%) hue-rotate(340deg) brightness(91%) contrast(85%);
+        }
+
+        .social-icon img {
+            width: 24px;
+            height: 24px;
+            filter: brightness(0) invert(1);
+            opacity: 0.9;
+            transition: all 0.3s ease;
+        }
+
+        /* ===== НАВИГАЦИОННАЯ ПАНЕЛЬ С ЭФФЕКТОМ СТЕКЛА ===== */
+        .nav-panel {
+            position: fixed;
+            right: 19px;
+            top: 19px;
+            width: 823px;
+            height: 66px;
+            background: rgba(207, 199, 179, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 20px;
+            z-index: 999;
+            overflow: hidden;
+            opacity: 0;
+            transform: scale(0);
+            transform-origin: top right;
+        }
+
+        .nav-panel.open {
+            animation: navPanelOpen 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes navPanelOpen {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Кнопка для открытия навигации (4 квадратика) */
+        .nav-trigger {
+            position: fixed;
+            right: 19px;
+            top: 19px;
+            width: 65px;
+            height: 66px;
+            background: rgba(207, 199, 179, 0.95);
+            backdrop-filter: blur(2px);
+            border-radius: 20px;
+            z-index: 1000;
+            cursor: pointer;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 10px;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-trigger:hover {
+            background: rgba(207, 199, 179, 0.8);
+        }
+
+        .nav-trigger-square {
+            width: 16.5px;
+            height: 16.96px;
+            background: var(--primary-red);
+            transition: all 0.3s ease;
+        }
+
+        .nav-trigger:hover .nav-trigger-square {
+            transform: rotate(45deg);
+        }
+
+        /* Навигационные элементы */
+        .nav-items {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 100%;
+            padding: 0 40px;
+        }
+
+        .nav-item {
+            color: var(--ink-black);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 400;
+            padding: 10px 0;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        .nav-panel.open .nav-item {
+            animation: navItemAppear 0.5s ease forwards;
+        }
+
+        .nav-panel.open .nav-item:nth-child(1) { animation-delay: 0.3s; }
+        .nav-panel.open .nav-item:nth-child(2) { animation-delay: 0.4s; }
+        .nav-panel.open .nav-item:nth-child(3) { animation-delay: 0.5s; }
+        .nav-panel.open .nav-item:nth-child(4) { animation-delay: 0.6s; }
+        .nav-panel.open .nav-item:nth-child(5) { animation-delay: 0.7s; }
+
+        @keyframes navItemAppear {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .nav-item:hover {
+            color: var(--primary-red);
+        }
+
+        .nav-item.active {
+            color: var(--primary-red);
+            font-weight: 600;
+        }
+
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary-red);
+            border-radius: 3px;
+        }
+
+        /* ===== ГЕРОЙ-СЛАЙДЕР ===== */
+        .hero-slider {
+            margin-left: 170px;
+            width: calc(100% - 170px);
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* ===== СЛАЙД ===== */
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease;
+        }
+
+        .slide.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .slide-1 { background: var(--paper-beige); }
+        .slide-2 { background: var(--paper-beige); }
+        .slide-3 { background: var(--paper-beige); }
+
+        .slide-content {
+            max-width: 1200px;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main-title {
+            font-size: 64px;
+            font-weight: 400;
+            margin-bottom: 20px;
+            color: var(--ink-black);
+            text-align: center;
+            position: relative;
+            font-family: 'Shantell Sans';
+        }
+
+        .chinese-title {
+            font-family: 'SimSun', 'STKaiti', serif;
+            font-size: 64px;
+            color: var(--primary-red);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .description {
+            font-size: 24px;
+            line-height: 1.469;
+            color: #66573E;
+            margin-bottom: 60px;
+            max-width: 694px;
+            text-align: center;
+            font-family: 'Shantell Sans';
+        }
+
+        /* Интерактивные карточки */
+        .cards-container {
+            display: flex;
+            gap: 88px;
+            margin: 40px 0;
+            position: relative;
+        }
+
+        .interactive-card {
+            width: 223px;
+            height: 280px;
+            background: white;
+            border-radius: 20px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            overflow: hidden;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .interactive-card:hover {
+            transform: translateY(-20px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+        }
+
+        .card-front {
+            background: white;
+        }
+
+        .card-back {
+            background: var(--primary-red);
+            color: white;
+            transform: rotateY(180deg);
+            padding: 20px;
+        }
+
+        .card-character {
+            font-family: 'SimSun', 'STKaiti', serif;
+            font-size: 64px;
+            margin-bottom: 20px;
+            color: var(--ink-black);
+            height: 94px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-back .card-character {
+            color: white;
+        }
+
+        .card-pinyin {
+            font-size: 24px;
+            color: var(--primary-red);
+            margin-bottom: 5px;
+            font-family: 'Shantell Sans';
+        }
+
+        .card-back .card-pinyin {
+            color: white;
+        }
+
+        .card-meaning {
+            font-size: 24px;
+            color: #7F6E52;
+            font-family: 'Shantell Sans';
+        }
+
+        .card-back .card-meaning {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .card-example {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 20px;
+            text-align: center;
+            font-style: italic;
+            line-height: 1.4;
+        }
+
+        .card-audio-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            margin-top: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .card-audio-btn:hover {
+            background: white;
+            color: var(--primary-red);
+            transform: scale(1.1);
+        }
+
+        /* Кнопка действия */
+        .action-button {
+            padding: 18px 50px;
+            background: var(--primary-red);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 20px;
+            font-weight: 400;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+            font-family: 'Shantell Sans';
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(150, 40, 39, 0.3);
+        }
+
+        /* Визуализатор аудио для слайда 2 */
+        .audio-container {
+            width: 700px;
+            height: 300px;
+            background: white;
+            border-radius: 20px;
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .visualizer-canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Текст контейнер для слайда 3 */
+        .text-reader {
+            width: 800px;
+            height: 400px;
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            margin: 40px 0;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .chinese-text {
+            font-family: 'SimSun', 'STKaiti', serif;
+            font-size: 24px;
+            line-height: 2;
+            text-align: justify;
+        }
+
+        .text-word {
+            cursor: pointer;
+            padding: 2px 4px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            position: relative;
+            text-decoration: underline;
+            text-decoration-color: rgba(150, 40, 39, 0.3);
+            text-decoration-thickness: 2px;
+        }
+
+        .text-word:hover {
+            background: rgba(150, 40, 39, 0.1);
+            text-decoration-color: var(--primary-red);
+        }
+
+        /* ===== ПРОГРЕСС БАР (ЛИНИЯ) ===== */
+        .progress-line {
+            position: fixed;
+            left: 170px;
+            right: 0;
+            bottom: 0;
+            height: 18px;
+            background: rgba(150, 40, 39, 0.2);
+            z-index: 1000;
+        }
+
+        .progress-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            background: var(--primary-red);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Кнопки навигации слайдера (круги по краям) */
+        .slider-nav {
+            position: fixed;
+            bottom: 943px;
+            z-index: 1000;
+        }
+
+        .slider-nav.prev {
+            left: 190px;
+        }
+
+        .slider-nav.next {
+            right: 190px;
+        }
+
+        .nav-circle {
+            width: 100px;
+            height: 100px;
+            background: var(--primary-red);
+            border-radius: 50%;
+            border: none;
+            color: white;
+            font-size: 32px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(150, 40, 39, 0.3);
+        }
+
+        .nav-circle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 30px rgba(150, 40, 39, 0.4);
+        }
+
+        .nav-circle:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ===== ОСНОВНОЙ КОНТЕНТ (ПРИ ПРОКРУТКЕ ВНИЗ) ===== */
+        .main-content {
+            margin-left: 170px;
+            width: calc(100% - 170px);
+            padding: 100px 40px;
+            background: var(--paper-beige);
+            position: relative;
+            z-index: 10;
+        }
+
+        .content-section {
+            max-width: 1200px;
+            margin: 0 auto 120px;
+            position: relative;
+        }
+
+        .section-header {
+            margin-bottom: 80px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-weight: 400;
+            margin-bottom: 20px;
+            color: var(--ink-black);
+            font-family: 'Shantell Sans';
+        }
+
+        .section-subtitle {
+            font-size: 24px;
+            color: #66573E;
+            max-width: 600px;
+            margin: 0 auto;
+            font-family: 'Shantell Sans';
+        }
+
+        /* Системные блоки */
+        .system-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .system-card {
+            background: white;
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .system-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(150, 40, 39, 0.15);
+        }
+
+        .system-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--primary-red);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            color: white;
+            font-size: 32px;
+        }
+
+        .system-title {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: var(--ink-black);
+            font-family: 'Shantell Sans';
+        }
+
+        .system-description {
+            color: #66573E;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-family: 'Shantell Sans';
+        }
+
+        /* Награды и прогресс */
+        .rewards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+
+        .reward-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .reward-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(150, 40, 39, 0.2);
+        }
+
+        .reward-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-red);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 24px;
+        }
+
+        .reward-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--ink-black);
+        }
+
+        .reward-desc {
+            color: #66573E;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Процесс обучения */
+        .process-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            margin: 60px 0;
+        }
+
+        .process-step {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 30px;
+            align-items: center;
+            padding: 30px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .process-step:hover {
+            transform: translateX(10px);
+            box-shadow: 0 15px 35px rgba(150, 40, 39, 0.15);
+        }
+
+        .step-number {
+            width: 70px;
+            height: 70px;
+            background: var(--primary-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .step-content h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--ink-black);
+        }
+
+        .step-content p {
+            color: #66573E;
+            line-height: 1.6;
+        }
+
+        /* Цены */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(150, 40, 39, 0.2);
+        }
+
+        .pricing-card.popular {
+            border: 3px solid var(--primary-red);
+            transform: scale(1.05);
+        }
+
+        .pricing-card.popular:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-red);
+            color: white;
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .pricing-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--ink-black);
+        }
+
+        .pricing-price {
+            font-size: 48px;
+            color: var(--primary-red);
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .pricing-features li {
+            margin-bottom: 10px;
+            color: #66573E;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .pricing-features li i {
+            color: var(--primary-red);
+        }
+
+        /* Кнопка "Попробовать" */
+        .try-button {
+            display: inline-block;
+            padding: 18px 50px;
+            background: var(--primary-red);
+            color: white;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: 400;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: 'Shantell Sans';
+        }
+
+        .try-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(150, 40, 39, 0.2);
+        }
+
+        /* ===== АНИМАЦИИ ПРИ ПРОКРУТКЕ ===== */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== ВСПЛЫВАЮЩЕЕ ОКНО ДЛЯ СЛОВ ===== */
+        .word-popup {
+            position: fixed;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            z-index: 2000;
+            display: none;
+            min-width: 300px;
+            max-width: 400px;
+            border: 3px solid var(--primary-red);
+        }
+
+        .word-popup.active {
+            display: block;
+            animation: popupAppear 0.3s ease;
+        }
+
+        @keyframes popupAppear {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .popup-character {
+            font-family: 'SimSun', 'STKaiti', serif;
+            font-size: 48px;
+            color: var(--ink-black);
+        }
+
+        .popup-audio {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-red);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .popup-audio:hover {
+            transform: scale(1.1);
+            background: #a83232;
+        }
+
+        .popup-details {
+            margin-bottom: 25px;
+        }
+
+        .popup-pinyin {
+            font-size: 24px;
+            color: var(--primary-red);
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .popup-translation {
+            font-size: 18px;
+            color: rgba(45, 27, 0, 0.8);
+            margin-bottom: 15px;
+        }
+
+        .popup-example {
+            font-size: 16px;
+            color: rgba(45, 27, 0, 0.7);
+            font-style: italic;
+            padding: 15px;
+            background: var(--paper-beige);
+            border-radius: 10px;
+            line-height: 1.5;
+        }
+
+        /* ===== АДАПТИВНОСТЬ ===== */
+        @media (max-width: 1200px) {
+            .left-panel {
+                width: 100px;
+            }
+            
+            .hero-slider {
+                margin-left: 100px;
+                width: calc(100% - 100px);
+            }
+            
+            .main-content {
+                margin-left: 100px;
+                width: calc(100% - 100px);
+            }
+            
+            .progress-line {
+                left: 100px;
+            }
+            
+            .logo {
+                width: 60px;
+                height: 60px;
+                font-size: 26px;
+            }
+            
+            .main-title {
+                font-size: 48px;
+            }
+            
+            .chinese-title {
+                font-size: 48px;
+            }
+            
+            .cards-container {
+                gap: 40px;
+            }
+            
+            .audio-container {
+                width: 90%;
+            }
+            
+            .text-reader {
+                width: 90%;
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .left-panel {
+                display: none;
+            }
+            
+            .hero-slider {
+                margin-left: 0;
+                width: 100%;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+                padding: 80px 20px;
+            }
+            
+            .nav-panel {
+                width: 90%;
+                right: 5%;
+            }
+            
+            .nav-items {
+                padding: 0 20px;
+                font-size: 14px;
+            }
+            
+            .cards-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .progress-line {
+                left: 0;
+            }
+            
+            .slider-nav {
+                display: none;
+            }
+            
+            .system-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Левая панель -->
+    <div class="left-panel">
+        <div class="logo" id="homeButton"><img src="assets/img/1 1.png" alt="SanBaiFen" ></div>
+        <div class="social-grid">
+            <div class="social-icon">
+                <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram">
+            </div>
+            <div class="social-icon">
+                <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
+            </div>
+        </div>
+    </div>
+
+    <!-- Кнопка открытия навигации (4 квадратика) -->
+    <div class="nav-trigger" id="navTrigger">
+        <div class="nav-trigger-square"></div>
+        <div class="nav-trigger-square"></div>
+        <div class="nav-trigger-square"></div>
+        <div class="nav-trigger-square"></div>
+    </div>
+
+    <!-- Навигационная панель с эффектом стекла -->
+    <div class="nav-panel" id="navPanel">
+        <div class="nav-items">
+            <a href="#" class="nav-item active" data-slide="0">Главная</a>
+            <a href="#" class="nav-item" data-slide="1">Карточки</a>
+            <a href="#" class="nav-item" data-slide="2">Аудирование</a>
+            <a href="#" class="nav-item" data-slide="3">Тексты</a>
+            <a href="#" class="nav-item" id="navCreate">Создать</a>
+        </div>
+    </div>
+
+    <!-- Герой-слайдер -->
+    <div class="hero-slider" id="heroSlider">
+        <!-- Слайд 1: Карточки -->
+        <div class="slide slide-1 active" id="slide1">
+            <div class="slide-content">
+                <h1 class="main-title" id="title1">Интерактивные карточки</h1>
+                <div class="chinese-title" id="chinese1">中国不是美国</div>
+                <p class="description" id="desc1">
+                    Изучайте иероглифы через SRS-систему повторений с интерактивными 3D карточками, 
+                    аудио произношением и контекстными примерами использования
+                </p>
+                
+                <div class="cards-container">
+                    <div class="interactive-card" id="card1">
+                        <div class="card-front">
+                            <div class="card-character">学习</div>
+                            <div class="card-details">
+                                <div class="card-pinyin">xué xí</div>
+                                <div class="card-meaning">Учить</div>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <div class="card-character">学习</div>
+                            <div class="card-details">
+                                <div class="card-pinyin">xué xí</div>
+                                <div class="card-meaning">учить, учиться</div>
+                                <div class="card-example">我学习中文<br>(Я учу китайский)</div>
+                                <button class="card-audio-btn">
+                                    <i class="fas fa-volume-up"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="interactive-card" id="card2">
+                        <div class="card-front">
+                            <div class="card-character">爱</div>
+                            <div class="card-details">
+                                <div class="card-pinyin">ài</div>
+                                <div class="card-meaning">Любить</div>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <div class="card-character">爱</div>
+                            <div class="card-details">
+                                <div class="card-pinyin">ài</div>
+                                <div class="card-meaning">любовь, любить</div>
+                                <div class="card-example">我爱你<br>(Я люблю тебя)</div>
+                                <button class="card-audio-btn">
+                                    <i class="fas fa-volume-up"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="interactive-card" id="card3">
+                        <div class="card-front">
+                            <div class="card-character">语</div>
+                            <div class="card-details">
+                                <div class="card-pinyin">yǔ</div>
+                                <div class="card-meaning">Язык, речь</div>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <div class="card-character">语</div>
+                            <div class="card-details">
+                                <div class="card-pinyin">yǔ</div>
+                                <div class="card-meaning">язык, речь</div>
+                                <div class="card-example">汉语<br>(Китайский язык)</div>
+                                <button class="card-audio-btn">
+                                    <i class="fas fa-volume-up"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="action-button" id="action1">
+                    <span>Начать с карточек</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Слайд 2: Аудирование -->
+        <div class="slide slide-2" id="slide2">
+            <div class="slide-content">
+                <h1 class="main-title" id="title2">Иммерсивное аудирование</h1>
+                <div class="chinese-title" id="chinese2">沉浸式听力训练</div>
+                <p class="description" id="desc2">
+                    Тренируйте восприятие китайской речи через пространственное аудио, 
+                    адаптированные диалоги и интерактивные задания на понимание
+                </p>
+                
+                <div class="audio-container">
+                    <canvas class="visualizer-canvas" id="audioCanvas"></canvas>
+                </div>
+                
+                <button class="action-button" id="action2">
+                    <span>Тренировать аудирование</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Слайд 3: Тексты -->
+        <div class="slide slide-3" id="slide3">
+            <div class="slide-content">
+                <h1 class="main-title" id="title3">Адаптированные тексты</h1>
+                <div class="chinese-title" id="chinese3">分级阅读文本</div>
+                <p class="description" id="desc3">
+                    Читайте китайские тексты с синхронным аудио, интерактивным словарем 
+                    и заданиями на понимание. Все материалы адаптированы по уровням HSK
+                </p>
+                
+                <div class="text-reader" id="textReader">
+                    <div class="chinese-text" id="chineseText">
+                        今天天气很好。我去<span class="text-word" data-char="公园" data-pinyin="gōngyuán" data-translation="парк" data-example="我去公园">公园</span>。在公园里，有很多人。有的<span class="text-word" data-char="跑步" data-pinyin="pǎobù" data-translation="бегать" data-example="有的跑步">跑步</span>，有的<span class="text-word" data-char="看书" data-pinyin="kànshū" data-translation="читать книгу" data-example="有的看书">看书</span>。孩子们在<span class="text-word" data-char="玩" data-pinyin="wán" data-translation="играть" data-example="孩子们在玩球">玩</span>球。<span class="text-word" data-char="老人" data-pinyin="lǎorén" data-translation="старики" data-example="老人们在下棋">老人</span>们在<span class="text-word" data-char="下棋" data-pinyin="xiàqí" data-translation="играть в шахматы" data-example="老人们在下棋">下棋</span>。树上的<span class="text-word" data-char="鸟" data-pinyin="niǎo" data-translation="птица" data-example="树上的鸟在唱歌">鸟</span>在<span class="text-word" data-char="唱歌" data-pinyin="chànggē" data-translation="петь" data-example="鸟在唱歌">唱歌</span>。我很<span class="text-word" data-char="喜欢" data-pinyin="xǐhuān" data-translation="нравиться" data-example="我很喜欢公园">喜欢</span>这个公园。
+                    </div>
+                </div>
+                
+                <button class="action-button" id="action3">
+                    <span>Читать тексты</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Прогресс бар (линия) -->
+    <div class="progress-line" id="progressLine">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <!-- Кнопки навигации слайдера (круги) -->
+    <button class="slider-nav prev" id="prevBtn">
+        <div class="nav-circle">
+            <i class="fas fa-chevron-left"></i>
+        </div>
+    </button>
+    
+    <button class="slider-nav next" id="nextBtn">
+        <div class="nav-circle">
+            <i class="fas fa-chevron-right"></i>
+        </div>
+    </button>
+
+    <!-- Всплывающее окно для слов -->
+    <div class="word-popup" id="wordPopup">
+        <div class="popup-header">
+            <div class="popup-character" id="popupChar">学</div>
+            <button class="popup-audio" id="popupAudioBtn">
+                <i class="fas fa-volume-up"></i>
+            </button>
+        </div>
+        
+        <div class="popup-details">
+            <div class="popup-pinyin" id="popupPinyin">xué</div>
+            <div class="popup-translation" id="popupTranslation">учиться, изучать</div>
+            <div class="popup-example" id="popupExample">
+                <strong>Пример:</strong> 我学习中文 (Я учу китайский)
+            </div>
+        </div>
+        
+        <div class="popup-actions">
+            <button class="popup-btn save" id="saveWordBtn">
+                <i class="fas fa-save"></i> Сохранить
+            </button>
+            <button class="popup-btn close" id="closePopupBtn">
+                <i class="fas fa-times"></i> Закрыть
+            </button>
+        </div>
+    </div>
+
+    <!-- Основной контент (при прокрутке вниз) -->
+    <div class="main-content">
+        <section class="content-section" id="about">
+            <!-- Система обучения -->
+            <div class="section-header">
+                <h2 class="section-title">Система обучения SanBaiFen</h2>
+                <p class="section-subtitle">
+                    Инновационный подход к изучению китайского, сочетающий проверенные методики 
+                    с современными технологиями
+                </p>
+            </div>
+
+            <div class="system-grid">
+                <div class="system-card animate-on-scroll">
+                    <div class="system-icon">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h3 class="system-title">Умные карточки</h3>
+                    <p class="system-description">
+                        SRS-алгоритм анализирует ваш прогресс и показывает карточки именно тогда, 
+                        когда вы готовы их забыть. Каждая карточка содержит иероглиф, пиньинь, 
+                        перевод и примеры использования.
+                    </p>
+                </div>
+
+                <div class="system-card animate-on-scroll">
+                    <div class="system-icon">
+                        <i class="fas fa-headphones"></i>
+                    </div>
+                    <h3 class="system-title">Аудирование</h3>
+                    <p class="system-description">
+                        Диалоги озвучены носителями языка. Система адаптирует скорость воспроизведения 
+                        под ваш уровень и предлагает интерактивные задания на понимание.
+                    </p>
+                </div>
+
+                <div class="system-card animate-on-scroll">
+                    <div class="system-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3 class="system-title">Тексты с переводом</h3>
+                    <p class="system-description">
+                        Читайте адаптированные тексты и нажимайте на незнакомые слова для мгновенного 
+                        перевода и озвучки. Все тексты разделены по уровням HSK.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Процесс обучения -->
+            <div class="section-header">
+                <h2 class="section-title">Процесс обучения</h2>
+                <p class="section-subtitle">
+                    Пошаговый путь от первого иероглифа до свободного чтения и понимания
+                </p>
+            </div>
+
+            <div class="process-steps">
+                <div class="process-step animate-on-scroll">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Изучение карточек</h3>
+                        <p>Ежедневно изучайте новые иероглифы через интерактивные карточки. 
+                        Система запоминает ваши ошибки и предлагает повторить сложные моменты.</p>
+                    </div>
+                </div>
+
+                <div class="process-step animate-on-scroll">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Тренировка аудирования</h3>
+                        <p>Слушайте диалоги и выполняйте задания на понимание. Начните с медленного темпа 
+                        и постепенно переходите к нормальной скорости речи.</p>
+                    </div>
+                </div>
+
+                <div class="process-step animate-on-scroll">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Чтение текстов</h3>
+                        <p>Применяйте изученные слова в контексте. Читайте адаптированные тексты, 
+                        сохраняйте незнакомые слова и отслеживайте свой прогресс.</p>
+                    </div>
+                </div>
+
+                <div class="process-step animate-on-scroll">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Повторение и закрепление</h3>
+                        <p>Система автоматически напоминает о повторении изученного материала 
+                        через оптимальные интервалы для долгосрочного запоминания.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Система рейтингов и наград -->
+            <div class="section-header">
+                <h2 class="section-title">Система мотивации</h2>
+                <p class="section-subtitle">
+                    Достигайте целей и получайте награды за ваш прогресс
+                </p>
+            </div>
+
+            <div class="rewards-container">
+                <div class="reward-card animate-on-scroll">
+                    <div class="reward-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <h3 class="reward-title">Серия дней</h3>
+                    <p class="reward-desc">Занимайтесь каждый день, чтобы увеличивать серию и получать бонусные очки</p>
+                </div>
+
+                <div class="reward-card animate-on-scroll">
+                    <div class="reward-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3 class="reward-title">Уровни мастерства</h3>
+                    <p class="reward-desc">Повышайте уровень по мере изучения новых иероглифов и выполнения заданий</p>
+                </div>
+
+                <div class="reward-card animate-on-scroll">
+                    <div class="reward-icon">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <h3 class="reward-title">Достижения</h3>
+                    <p class="reward-desc">Получайте значки за особые успехи: 100 карточек за день, 30 дней подряд и др.</p>
+                </div>
+
+                <div class="reward-card animate-on-scroll">
+                    <div class="reward-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="reward-title">Статистика прогресса</h3>
+                    <p class="reward-desc">Отслеживайте свой рост через детальную статистику и графики прогресса</p>
+                </div>
+            </div>
+
+            <!-- Тарифы -->
+            <div class="section-header">
+                <h2 class="section-title">Выберите свой план</h2>
+                <p class="section-subtitle">
+                    Начните бесплатно, переходите на премиум когда будете готовы
+                </p>
+            </div>
+
+            <div class="pricing-grid">
+                <div class="pricing-card animate-on-scroll">
+                    <h3 class="pricing-title">Бесплатно</h3>
+                    <div class="pricing-price">0₽</div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> 100 карточек в день</li>
+                        <li><i class="fas fa-check"></i> 10 аудио уроков</li>
+                        <li><i class="fas fa-check"></i> 5 текстов для чтения</li>
+                        <li><i class="fas fa-check"></i> Базовая статистика</li>
+                    </ul>
+                    <button class="try-button">Начать бесплатно</button>
+                </div>
+
+                <div class="pricing-card animate-on-scroll popular">
+                    <div class="pricing-badge">Популярный</div>
+                    <h3 class="pricing-title">Премиум</h3>
+                    <div class="pricing-price">499₽<span style="font-size: 16px;">/мес</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Неограниченные карточки</li>
+                        <li><i class="fas fa-check"></i> Все аудио материалы</li>
+                        <li><i class="fas fa-check"></i> Полная библиотека текстов</li>
+                        <li><i class="fas fa-check"></i> Расширенная статистика</li>
+                        <li><i class="fas fa-check"></i> Приоритетная поддержка</li>
+                    </ul>
+                    <button class="try-button">Выбрать премиум</button>
+                </div>
+
+                <div class="pricing-card animate-on-scroll">
+                    <h3 class="pricing-title">Годовой</h3>
+                    <div class="pricing-price">4,999₽<span style="font-size: 16px;">/год</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Все возможности премиум</li>
+                        <li><i class="fas fa-check"></i> Экономия 2 месяца</li>
+                        <li><i class="fas fa-check"></i> Персональный план обучения</li>
+                        <li><i class="fas fa-check"></i> Экспорт прогресса</li>
+                    </ul>
+                    <button class="try-button">Выбрать годовой</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // ===== ГЛАВНЫЙ КЛАСС ПРИЛОЖЕНИЯ =====
+        class SanBaiFenApp {
+            constructor() {
+                this.currentSlide = 0;
+                this.totalSlides = 3;
+                this.isTransitioning = false;
+                this.navOpen = false;
+                
+                // Элементы
+                this.slides = document.querySelectorAll('.slide');
+                this.navItems = document.querySelectorAll('.nav-item');
+                this.navTrigger = document.getElementById('navTrigger');
+                this.navPanel = document.getElementById('navPanel');
+                this.prevBtn = document.getElementById('prevBtn');
+                this.nextBtn = document.getElementById('nextBtn');
+                this.progressFill = document.getElementById('progressFill');
+                this.homeButton = document.getElementById('homeButton');
+                
+                this.init();
+            }
+            
+            init() {
+                this.setupEventListeners();
+                this.setupCardInteractions();
+                this.setupTextInteractions();
+                this.setupAudioVisualizer();
+                this.setupScrollAnimations();
+                this.animateEntrance();
+                
+                // Автоматическое открытие навигации через 1 секунду
+                setTimeout(() => {
+                    this.toggleNavigation();
+                }, 1000);
+                
+                // Обновляем прогресс
+                this.updateProgress();
+            }
+            
+            setupEventListeners() {
+                // Навигация слайдера
+                this.prevBtn.addEventListener('click', () => this.goToSlide(this.currentSlide - 1));
+                this.nextBtn.addEventListener('click', () => this.goToSlide(this.currentSlide + 1));
+                
+                // Навигационные элементы
+                this.navItems.forEach((item, index) => {
+                    item.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        if (index < this.totalSlides) {
+                            this.goToSlide(index);
+                        } else if (item.id === 'navCreate') {
+                            this.showCreateSection();
+                        }
+                    });
+                });
+                
+                // Кнопка открытия навигации
+                this.navTrigger.addEventListener('click', () => this.toggleNavigation());
+                
+                // Кнопка домой
+                this.homeButton.addEventListener('click', () => {
+                    this.goToSlide(0);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+                
+                // Кнопки действия
+                document.querySelectorAll('.action-button').forEach((btn, index) => {
+                    btn.addEventListener('click', () => {
+                        this.animateButtonClick(btn);
+                        // В реальном приложении здесь будет переход к соответствующему разделу
+                        setTimeout(() => {
+                            if (index === 0) {
+                                this.goToSlide(1); // Переход к карточкам
+                            } else if (index === 1) {
+                                this.goToSlide(2); // Переход к аудированию
+                            } else {
+                                this.goToSlide(3); // Переход к текстам
+                            }
+                        }, 300);
+                    });
+                });
+                
+                // Управление с клавиатуры
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') this.goToSlide(this.currentSlide - 1);
+                    if (e.key === 'ArrowRight') this.goToSlide(this.currentSlide + 1);
+                    if (e.key === 'Escape' && this.navOpen) this.toggleNavigation();
+                    if (e.key === ' ') this.toggleCardFlip();
+                });
+                
+                // Swipe для мобильных
+                let startX = 0;
+                const container = document.querySelector('.hero-slider');
+                
+                container.addEventListener('touchstart', (e) => {
+                    startX = e.touches[0].clientX;
+                });
+                
+                container.addEventListener('touchend', (e) => {
+                    const endX = e.changedTouches[0].clientX;
+                    const diff = startX - endX;
+                    
+                    if (Math.abs(diff) > 50) {
+                        if (diff > 0) this.goToSlide(this.currentSlide + 1);
+                        else this.goToSlide(this.currentSlide - 1);
+                    }
+                });
+                
+                // Закрытие попапа при клике вне его
+                document.addEventListener('click', (e) => {
+                    const popup = document.getElementById('wordPopup');
+                    if (!popup.contains(e.target) && !e.target.classList.contains('text-word')) {
+                        this.hideWordPopup();
+                    }
+                });
+            }
+            
+            toggleNavigation() {
+                this.navOpen = !this.navOpen;
+                
+                if (this.navOpen) {
+                    this.navPanel.classList.add('open');
+                    this.navTrigger.style.opacity = '0';
+                    this.navTrigger.style.pointerEvents = 'none';
+                } else {
+                    this.navPanel.classList.remove('open');
+                    this.navTrigger.style.opacity = '1';
+                    this.navTrigger.style.pointerEvents = 'all';
+                }
+            }
+            
+            goToSlide(targetSlide) {
+                if (targetSlide < 0 || targetSlide >= this.totalSlides || this.isTransitioning) return;
+                
+                this.isTransitioning = true;
+                
+                // Скрываем текущий слайд с анимацией
+                const currentSlide = this.slides[this.currentSlide];
+                gsap.to(currentSlide, {
+                    duration: 0.5,
+                    opacity: 0,
+                    y: -50,
+                    ease: "power2.inOut",
+                    onComplete: () => {
+                        currentSlide.classList.remove('active');
+                    }
+                });
+                
+                // Показываем новый слайд
+                setTimeout(() => {
+                    const newSlide = this.slides[targetSlide];
+                    newSlide.classList.add('active');
+                    
+                    gsap.fromTo(newSlide, 
+                        { opacity: 0, y: 50 },
+                        {
+                            duration: 0.5,
+                            opacity: 1,
+                            y: 0,
+                            ease: "power2.out",
+                            onComplete: () => {
+                                this.isTransitioning = false;
+                            }
+                        }
+                    );
+                    
+                    // Анимация элементов нового слайда
+                    this.animateSlideContent(targetSlide);
+                    
+                    this.currentSlide = targetSlide;
+                    this.updateNavigation();
+                    this.updateProgress();
+                    
+                    // Обновляем визуализатор для слайда аудирования
+                    if (targetSlide === 1) {
+                        this.startAudioVisualizer();
+                    }
+                }, 500);
+            }
+            
+            animateSlideContent(slideIndex) {
+                const slide = this.slides[slideIndex];
+                const elements = {
+                    title: slide.querySelector('.main-title'),
+                    chinese: slide.querySelector('.chinese-title'),
+                    description: slide.querySelector('.description'),
+                    cards: slide.querySelectorAll('.interactive-card'),
+                    audioContainer: slide.querySelector('.audio-container'),
+                    textReader: slide.querySelector('.text-reader'),
+                    actionButton: slide.querySelector('.action-button')
+                };
+                
+                // Сброс позиций для анимации
+                if (elements.title) {
+                    gsap.fromTo(elements.title,
+                        { opacity: 0, y: 30 },
+                        { duration: 0.6, opacity: 1, y: 0, ease: "back.out(1.7)" }
+                    );
+                }
+                
+                if (elements.chinese) {
+                    gsap.fromTo(elements.chinese,
+                        { opacity: 0, y: 30 },
+                        { duration: 0.6, opacity: 1, y: 0, ease: "back.out(1.7)", delay: 0.1 }
+                    );
+                }
+                
+                if (elements.description) {
+                    gsap.fromTo(elements.description,
+                        { opacity: 0, y: 30 },
+                        { duration: 0.6, opacity: 1, y: 0, ease: "back.out(1.7)", delay: 0.2 }
+                    );
+                }
+                
+                if (elements.cards && elements.cards.length > 0) {
+                    gsap.fromTo(elements.cards,
+                        { opacity: 0, y: 50, scale: 0.8 },
+                        {
+                            duration: 0.8,
+                            opacity: 1,
+                            y: 0,
+                            scale: 1,
+                            stagger: 0.15,
+                            ease: "back.out(1.7)",
+                            delay: 0.3
+                        }
+                    );
+                }
+                
+                if (elements.audioContainer) {
+                    gsap.fromTo(elements.audioContainer,
+                        { opacity: 0, scale: 0.8 },
+                        { duration: 0.8, opacity: 1, scale: 1, ease: "back.out(1.7)", delay: 0.4 }
+                    );
+                }
+                
+                if (elements.textReader) {
+                    gsap.fromTo(elements.textReader,
+                        { opacity: 0, scale: 0.8 },
+                        { duration: 0.8, opacity: 1, scale: 1, ease: "back.out(1.7)", delay: 0.4 }
+                    );
+                }
+                
+                if (elements.actionButton) {
+                    gsap.fromTo(elements.actionButton,
+                        { opacity: 0, y: 30 },
+                        { duration: 0.6, opacity: 1, y: 0, ease: "back.out(1.7)", delay: 0.5 }
+                    );
+                }
+            }
+            
+            animateEntrance() {
+                // Анимация появления первого слайда
+                this.animateSlideContent(0);
+            }
+            
+            setupCardInteractions() {
+                document.querySelectorAll('.interactive-card').forEach(card => {
+                    card.addEventListener('click', function() {
+                        if (gsap.isTweening(this)) return;
+                        
+                        gsap.to(this, {
+                            duration: 0.6,
+                            rotateY: '+=180',
+                            ease: "power2.inOut"
+                        });
+                    });
+                    
+                    // Кнопка аудио на обратной стороне
+                    const audioBtn = card.querySelector('.card-audio-btn');
+                    if (audioBtn) {
+                        audioBtn.addEventListener('click', function(e) {
+                            e.stopPropagation();
+                            const pinyin = card.querySelector('.card-pinyin').textContent;
+                            this.playAudio(pinyin);
+                            
+                            // Анимация кнопки
+                            gsap.to(this, {
+                                duration: 0.2,
+                                scale: 0.9,
+                                yoyo: true,
+                                repeat: 1
+                            });
+                        }.bind(this));
+                    }
+                });
+            }
+            
+            setupTextInteractions() {
+                // Обработчики для кликабельных слов в тексте
+                document.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('text-word')) {
+                        const char = e.target.dataset.char;
+                        const pinyin = e.target.dataset.pinyin;
+                        const translation = e.target.dataset.translation;
+                        const example = e.target.dataset.example;
+                        
+                        this.showWordPopup(char, pinyin, translation, example, e);
+                    }
+                });
+                
+                // Закрытие попапа
+                document.getElementById('closePopupBtn').addEventListener('click', () => {
+                    this.hideWordPopup();
+                });
+                
+                // Сохранение слова
+                document.getElementById('saveWordBtn').addEventListener('click', () => {
+                    this.saveWordToCards();
+                });
+                
+                // Озвучка слова в попапе
+                document.getElementById('popupAudioBtn').addEventListener('click', () => {
+                    const pinyin = document.getElementById('popupPinyin').textContent;
+                    this.playAudio(pinyin);
+                });
+            }
+            
+            showWordPopup(char, pinyin, translation, example, event) {
+                const popup = document.getElementById('wordPopup');
+                const rect = event.target.getBoundingClientRect();
+                
+                // Устанавливаем позицию попапа рядом со словом
+                popup.style.left = `${rect.left + rect.width / 2}px`;
+                popup.style.top = `${rect.bottom + 10}px`;
+                
+                // Заполняем данные
+                document.getElementById('popupChar').textContent = char;
+                document.getElementById('popupPinyin').textContent = pinyin;
+                document.getElementById('popupTranslation').textContent = translation;
+                document.getElementById('popupExample').innerHTML = `<strong>Пример:</strong> ${example}`;
+                
+                // Показываем попап
+                popup.classList.add('active');
+                
+                // Добавляем активный класс слову
+                event.target.classList.add('active');
+                
+                // Позиционируем попап, чтобы он не выходил за экран
+                this.positionPopup(popup);
+            }
+            
+            hideWordPopup() {
+                const popup = document.getElementById('wordPopup');
+                popup.classList.remove('active');
+                
+                // Убираем активный класс со всех слов
+                document.querySelectorAll('.text-word.active').forEach(word => {
+                    word.classList.remove('active');
+                });
+            }
+            
+            positionPopup(popup) {
+                const rect = popup.getBoundingClientRect();
+                const windowWidth = window.innerWidth;
+                const windowHeight = window.innerHeight;
+                
+                // Проверяем, не выходит ли попап за пределы экрана
+                if (rect.right > windowWidth) {
+                    popup.style.left = `${windowWidth - rect.width - 20}px`;
+                }
+                
+                if (rect.bottom > windowHeight) {
+                    popup.style.top = `${windowHeight - rect.height - 20}px`;
+                }
+                
+                if (rect.left < 0) {
+                    popup.style.left = '20px';
+                }
+                
+                if (rect.top < 0) {
+                    popup.style.top = '20px';
+                }
+            }
+            
+            saveWordToCards() {
+                const char = document.getElementById('popupChar').textContent;
+                const pinyin = document.getElementById('popupPinyin').textContent;
+                const translation = document.getElementById('popupTranslation').textContent;
+                
+                // Создаем эффект добавления карточки
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background: var(--primary-red);
+                    color: white;
+                    padding: 20px 40px;
+                    border-radius: 20px;
+                    font-size: 20px;
+                    z-index: 2000;
+                    opacity: 0;
+                `;
+                notification.textContent = `Слово "${char}" добавлено в карточки!`;
+                
+                document.body.appendChild(notification);
+                
+                gsap.to(notification, {
+                    duration: 0.3,
+                    opacity: 1,
+                    scale: 1.2,
+                    ease: "power2.out"
+                });
+                
+                gsap.to(notification, {
+                    duration: 0.3,
+                    opacity: 0,
+                    scale: 0.8,
+                    delay: 1,
+                    ease: "power2.in",
+                    onComplete: () => notification.remove()
+                });
+                
+                this.hideWordPopup();
+            }
+            
+            setupAudioVisualizer() {
+                const canvas = document.getElementById('audioCanvas');
+                if (!canvas) return;
+                
+                const ctx = canvas.getContext('2d');
+                
+                function resizeCanvas() {
+                    canvas.width = canvas.offsetWidth;
+                    canvas.height = canvas.offsetHeight;
+                }
+                
+                resizeCanvas();
+                window.addEventListener('resize', resizeCanvas);
+            }
+            
+            startAudioVisualizer() {
+                const canvas = document.getElementById('audioCanvas');
+                if (!canvas) return;
+                
+                const ctx = canvas.getContext('2d');
+                const centerX = canvas.width / 2;
+                const centerY = canvas.height / 2;
+                
+                let animationId;
+                let time = 0;
+                
+                function draw() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Рисуем волны
+                    const waveCount = 8;
+                    
+                    for (let i = 0; i < waveCount; i++) {
+                        const radius = 50 + i * 20;
+                        const amplitude = 10 * Math.sin(time * 2 + i * 0.5);
+                        
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(150, 40, 39, ${0.3 - i * 0.03})`;
+                        ctx.lineWidth = 2;
+                        
+                        for (let angle = 0; angle < Math.PI * 2; angle += 0.01) {
+                            const x = centerX + (radius + amplitude * Math.sin(time * 3 + angle * 5)) * Math.cos(angle);
+                            const y = centerY + (radius + amplitude * Math.sin(time * 3 + angle * 5)) * Math.sin(angle);
+                            
+                            if (angle === 0) {
+                                ctx.moveTo(x, y);
+                            } else {
+                                ctx.lineTo(x, y);
+                            }
+                        }
+                        
+                        ctx.closePath();
+                        ctx.stroke();
+                    }
+                    
+                    time += 0.01;
+                    animationId = requestAnimationFrame(draw);
+                }
+                
+                // Останавливаем предыдущую анимацию, если есть
+                if (this.visualizerAnimation) {
+                    cancelAnimationFrame(this.visualizerAnimation);
+                }
+                
+                draw();
+                this.visualizerAnimation = animationId;
+            }
+            
+            toggleCardFlip() {
+                const currentCard = document.querySelectorAll('.interactive-card')[0];
+                if (currentCard) {
+                    gsap.to(currentCard, {
+                        duration: 0.6,
+                        rotateY: '+=180',
+                        ease: "power2.inOut"
+                    });
+                }
+            }
+            
+            animateButtonClick(button) {
+                gsap.to(button, {
+                    duration: 0.1,
+                    scale: 0.95,
+                    yoyo: true,
+                    repeat: 1
+                });
+                
+                // Эффект пульсации
+                const ripple = document.createElement('div');
+                ripple.style.cssText = `
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(255, 255, 255, 0.3);
+                    border-radius: 30px;
+                    top: 0;
+                    left: 0;
+                    z-index: -1;
+                `;
+                
+                button.appendChild(ripple);
+                
+                gsap.to(ripple, {
+                    duration: 0.6,
+                    scale: 1.5,
+                    opacity: 0,
+                    ease: "power2.out",
+                    onComplete: () => ripple.remove()
+                });
+            }
+            
+            setupScrollAnimations() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                        }
+                    });
+                }, {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -100px 0px'
+                });
+                
+                // Наблюдаем за всеми элементами с анимацией
+                document.querySelectorAll('.animate-on-scroll').forEach(el => {
+                    observer.observe(el);
+                });
+            }
+            
+            showCreateSection() {
+                alert('Раздел "Создать" откроется в следующем обновлении!');
+            }
+            
+            playAudio(text) {
+                if ('speechSynthesis' in window) {
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    utterance.lang = 'zh-CN';
+                    utterance.rate = 0.8;
+                    utterance.pitch = 1;
+                    
+                    // Получаем доступные голоса
+                    const voices = speechSynthesis.getVoices();
+                    const chineseVoice = voices.find(voice => 
+                        voice.lang.includes('zh') || voice.lang.includes('CN')
+                    );
+                    
+                    if (chineseVoice) {
+                        utterance.voice = chineseVoice;
+                    }
+                    
+                    speechSynthesis.speak(utterance);
+                }
+            }
+            
+            updateNavigation() {
+                // Обновляем кнопки навигации
+                this.prevBtn.disabled = this.currentSlide === 0;
+                this.nextBtn.disabled = this.currentSlide === this.totalSlides - 1;
+                
+                // Обновляем навигационные пункты
+                this.navItems.forEach((item, index) => {
+                    if (index < this.totalSlides) {
+                        item.classList.toggle('active', index === this.currentSlide);
+                    }
+                });
+            }
+            
+            updateProgress() {
+                const progress = (this.currentSlide + 1) / this.totalSlides * 100;
+                gsap.to(this.progressFill, {
+                    duration: 0.5,
+                    width: `${progress}%`,
+                    ease: "power2.out"
+                });
+            }
+        }
+        
+        // ===== ИНИЦИАЛИЗАЦИЯ ПРИЛОЖЕНИЯ =====
+        document.addEventListener('DOMContentLoaded', () => {
+            // Загружаем GSAP если его нет
+            if (typeof gsap === 'undefined') {
+                const script = document.createElement('script');
+                script.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js';
+                document.head.appendChild(script);
+                
+                script.onload = () => {
+                    new SanBaiFenApp();
+                };
+            } else {
+                new SanBaiFenApp();
+            }
+            
+            // Загрузка голосов для синтеза речи
+            if ('speechSynthesis' in window) {
+                speechSynthesis.getVoices();
+            }
+        });
+    </script>
+    
+    <!-- GSAP для анимаций -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+</body>
+</html>
