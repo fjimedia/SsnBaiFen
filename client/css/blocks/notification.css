@@ -1,0 +1,41 @@
+.notification {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--color-primary);
+    color: var(--color-white);
+    padding: 20px 40px;
+    border-radius: var(--radius-lg);
+    font-size: 20px;
+    z-index: 4000;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.notification_active {
+    animation: notificationIn 0.3s ease forwards;
+}
+
+.notification_success {
+    background: var(--color-success);
+}
+
+.notification_error {
+    background: var(--color-error);
+}
+
+@keyframes notificationIn {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}

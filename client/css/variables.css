@@ -1,0 +1,33 @@
+:root {
+    --color-primary: #962827;
+    --color-primary-hover: #7a1f1e;
+    --color-primary-light: rgba(150, 40, 39, 0.1);
+    --color-primary-glow: rgba(150, 40, 39, 0.3);
+    --color-paper: #E7E0CE;
+    --color-paper-dark: #CFC7B3;
+    --color-ink: #2d1b00;
+    --color-ink-light: #66573E;
+    --color-ink-muted: #7F6E52;
+    --color-white: #FFFFFF;
+    --color-gold: #d4af37;
+    --color-success: #2a6b2a;
+    --color-error: #962827;
+    --font-main: 'Shantell Sans', 'Inter', sans-serif;
+    --font-chinese: 'SimSun', 'STKaiti', 'Noto Serif SC', serif;
+    --font-display: 'UnifrakturMaguntia', 'Cinzel', serif;
+    --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.2);
+    --shadow-primary: 0 10px 20px rgba(150, 40, 39, 0.3);
+    --radius-sm: 8px;
+    --radius-md: 15px;
+    --radius-lg: 20px;
+    --radius-xl: 25px;
+    --radius-full: 50%;
+    --transition-fast: 0.2s ease;
+    --transition-base: 0.3s ease;
+    --transition-slow: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    --left-panel-width: 170px;
+    --nav-height: 66px;
+}

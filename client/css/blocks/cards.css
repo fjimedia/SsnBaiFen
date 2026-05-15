@@ -1,0 +1,119 @@
+.cards {
+    display: flex;
+    gap: 88px;
+    margin: 40px 0;
+    position: relative;
+}
+
+.cards__item {
+    width: 223px;
+    height: 280px;
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition-slow);
+    overflow: hidden;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    box-shadow: var(--shadow-md);
+}
+
+.cards__item:hover {
+    transform: translateY(-20px) scale(1.05);
+    box-shadow: var(--shadow-lg);
+}
+
+.cards__item_flipped .cards__front {
+    transform: rotateY(180deg);
+}
+
+.cards__item_flipped .cards__back {
+    transform: rotateY(0);
+}
+
+.cards__front,
+.cards__back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-lg);
+    transition: transform 0.6s;
+}
+
+.cards__front {
+    background: var(--color-white);
+}
+
+.cards__back {
+    background: var(--color-primary);
+    color: var(--color-white);
+    transform: rotateY(180deg);
+    padding: 20px;
+}
+
+.cards__character {
+    font-family: var(--font-chinese);
+    font-size: 64px;
+    margin-bottom: 20px;
+    height: 94px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cards__back .cards__character {
+    color: var(--color-white);
+}
+
+.cards__pinyin {
+    font-size: 24px;
+    color: var(--color-primary);
+    margin-bottom: 5px;
+}
+
+.cards__back .cards__pinyin {
+    color: var(--color-white);
+}
+
+.cards__meaning {
+    font-size: 24px;
+    color: var(--color-ink-muted);
+}
+
+.cards__back .cards__meaning {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.cards__example {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 20px;
+    text-align: center;
+    font-style: italic;
+    line-height: 1.4;
+}
+
+.cards__audio {
+    width: 50px;
+    height: 50px;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--color-white);
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-base);
+    font-size: 20px;
+}
+
+.cards__audio:hover {
+    background: var(--color-white);
+    color: var(--color-primary);
+    transform: scale(1.1);
+}

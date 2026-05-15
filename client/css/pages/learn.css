@@ -1,0 +1,83 @@
+.learn {
+    margin-left: var(--left-panel-width);
+    padding: 40px;
+    background: var(--color-paper);
+    min-height: 100vh;
+}
+
+.learn__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.learn__title {
+    font-size: 32px;
+    color: var(--color-ink);
+}
+
+.learn__controls {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.learn__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.learn__card {
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    padding: 25px;
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    border: 2px solid transparent;
+}
+
+.learn__card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.learn__card-favorite {
+    border-color: var(--color-gold);
+}
+
+.learn__card-chinese {
+    font-family: var(--font-chinese);
+    font-size: 36px;
+    margin-bottom: 12px;
+    color: var(--color-ink);
+}
+
+.learn__card-pinyin {
+    font-size: 18px;
+    color: var(--color-primary);
+    margin-bottom: 8px;
+}
+
+.learn__card-translation {
+    font-size: 16px;
+    color: var(--color-ink-light);
+}
+
+.learn__progress {
+    margin-top: 15px;
+    height: 4px;
+    background: var(--color-paper-dark);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.learn__progress-fill {
+    height: 100%;
+    background: var(--color-primary);
+    border-radius: 2px;
+    transition: width 0.5s ease;
+}

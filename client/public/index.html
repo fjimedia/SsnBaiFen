@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SanBaiFen | 汉字之道</title>
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/fonts.css">
+    <link rel="stylesheet" href="../css/global/typography.css">
+    <link rel="stylesheet" href="../css/global/animations.css">
+    <link rel="stylesheet" href="../css/global/utilities.css">
+    <link rel="stylesheet" href="../css/blocks/left-panel.css">
+    <link rel="stylesheet" href="../css/blocks/nav.css">
+    <link rel="stylesheet" href="../css/blocks/hero.css">
+    <link rel="stylesheet" href="../css/blocks/slider.css">
+    <link rel="stylesheet" href="../css/blocks/cards.css">
+    <link rel="stylesheet" href="../css/blocks/button.css">
+    <link rel="stylesheet" href="../css/blocks/popup.css">
+    <link rel="stylesheet" href="../css/blocks/progress-bar.css">
+</head>
+<body>
+    <div class="left-panel">
+        <div class="left-panel__logo" id="homeButton">
+            <span>三</span>
+        </div>
+        <div class="left-panel__social">
+            <a class="left-panel__social-icon" href="#">TG</a>
+            <a class="left-panel__social-icon" href="#">IG</a>
+        </div>
+    </div>
+
+    <div class="nav">
+        <div class="nav__trigger" id="navTrigger">
+            <div class="nav__trigger-square"></div>
+            <div class="nav__trigger-square"></div>
+            <div class="nav__trigger-square"></div>
+            <div class="nav__trigger-square"></div>
+        </div>
+        <div class="nav__panel" id="navPanel">
+            <a class="nav__item nav__item_active" data-href="/">Главная</a>
+            <a class="nav__item" data-href="/cards">Карточки</a>
+            <a class="nav__item" data-href="/audio">Аудирование</a>
+            <a class="nav__item" data-href="/texts">Тексты</a>
+            <a class="nav__item" data-href="/games">Игры</a>
+            <a class="nav__item" data-href="/progress">Прогресс</a>
+            <a class="nav__item" data-href="/login">Войти</a>
+        </div>
+    </div>
+
+    <section class="hero" id="heroSlider">
+        <div class="hero__slide hero__slide_active" id="slide1">
+            <div class="hero__content">
+                <h1 class="hero__title">Интерактивные карточки</h1>
+                <div class="hero__chinese">汉字学习</div>
+                <p class="hero__description">
+                    Изучайте иероглифы через SRS-систему повторений с аудио произношением и контекстными примерами
+                </p>
+                <div class="cards">
+                    <div class="cards__item" id="card1">
+                        <div class="cards__front">
+                            <div class="cards__character">学习</div>
+                            <div class="cards__pinyin">xué xí</div>
+                            <div class="cards__meaning">Учить</div>
+                        </div>
+                        <div class="cards__back">
+                            <div class="cards__character">学习</div>
+                            <div class="cards__pinyin">xué xí</div>
+                            <div class="cards__meaning">учить, учиться</div>
+                            <div class="cards__example">我学习中文 (Я учу китайский)</div>
+                            <button class="cards__audio">🔊</button>
+                        </div>
+                    </div>
+                    <div class="cards__item" id="card2">
+                        <div class="cards__front">
+                            <div class="cards__character">爱</div>
+                            <div class="cards__pinyin">ài</div>
+                            <div class="cards__meaning">Любить</div>
+                        </div>
+                        <div class="cards__back">
+                            <div class="cards__character">爱</div>
+                            <div class="cards__pinyin">ài</div>
+                            <div class="cards__meaning">любовь, любить</div>
+                            <div class="cards__example">我爱你 (Я люблю тебя)</div>
+                            <button class="cards__audio">🔊</button>
+                        </div>
+                    </div>
+                    <div class="cards__item" id="card3">
+                        <div class="cards__front">
+                            <div class="cards__character">语</div>
+                            <div class="cards__pinyin">yǔ</div>
+                            <div class="cards__meaning">Язык, речь</div>
+                        </div>
+                        <div class="cards__back">
+                            <div class="cards__character">语</div>
+                            <div class="cards__pinyin">yǔ</div>
+                            <div class="cards__meaning">язык, речь</div>
+                            <div class="cards__example">汉语 (Китайский язык)</div>
+                            <button class="cards__audio">🔊</button>
+                        </div>
+                    </div>
+                </div>
+                <a class="button" href="/cards">
+                    <span>Начать с карточек</span>
+                    <span class="button__icon">→</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="hero__slide" id="slide2">
+            <div class="hero__content">
+                <h1 class="hero__title">Иммерсивное аудирование</h1>
+                <div class="hero__chinese">沉浸式听力训练</div>
+                <p class="hero__description">
+                    Тренируйте восприятие китайской речи через пространственное аудио и адаптированные диалоги
+                </p>
+                <div class="audio-container">
+                    <canvas class="visualizer-canvas" id="audioCanvas"></canvas>
+                </div>
+                <a class="button" href="/audio">
+                    <span>Тренировать аудирование</span>
+                    <span class="button__icon">→</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="hero__slide" id="slide3">
+            <div class="hero__content">
+                <h1 class="hero__title">Адаптированные тексты</h1>
+                <div class="hero__chinese">分级阅读文本</div>
+                <p class="hero__description">
+                    Читайте китайские тексты с синхронным аудио и интерактивным словарем. Все материалы по уровням HSK
+                </p>
+                <div class="text-reader" id="textReader">
+                    <p class="chinese-text">
+                        今天天气很好。我去<span class="text-word" data-char="公园" data-pinyin="gōngyuán" data-translation="парк" data-example="我去公园">公园</span>。在公园里，有很多人。
+                    </p>
+                </div>
+                <a class="button" href="/texts">
+                    <span>Читать тексты</span>
+                    <span class="button__icon">→</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="slider slider_vertical">
+        <button class="slider__arrow" data-direction="prev">↑</button>
+        <div class="slider__dots">
+            <div class="slider__dot slider__dot_active" data-index="0"></div>
+            <div class="slider__dot" data-index="1"></div>
+            <div class="slider__dot" data-index="2"></div>
+        </div>
+        <button class="slider__arrow" data-direction="next">↓</button>
+    </div>
+
+    <div class="popup" id="wordPopup">
+        <div class="popup__header">
+            <div class="popup__character" id="popupChar"></div>
+            <button class="popup__audio" id="popupAudioBtn">🔊</button>
+        </div>
+        <div class="popup__details">
+            <div class="popup__pinyin" id="popupPinyin"></div>
+            <div class="popup__translation" id="popupTranslation"></div>
+            <div class="popup__example" id="popupExample"></div>
+        </div>
+        <div class="popup__actions">
+            <button class="popup__btn popup__btn_save" id="saveWordBtn">💾 Сохранить</button>
+            <button class="popup__btn popup__btn_close" id="closePopupBtn">✕ Закрыть</button>
+        </div>
+    </div>
+
+    <div class="progress-bar">
+        <div class="progress-bar__fill" id="progressFill"></div>
+    </div>
+
+    <script src="../js/utils/constants.js"></script>
+    <script src="../js/utils/storage.js"></script>
+    <script src="../js/utils/api.js"></script>
+    <script src="../js/utils/audio.js"></script>
+    <script src="../js/components/navigation.js"></script>
+    <script src="../js/components/heroSlider.js"></script>
+    <script src="../js/components/cardSystem.js"></script>
+    <script src="../js/components/audioPlayer.js"></script>
+    <script src="../js/components/textReader.js"></script>
+    <script src="../js/components/scrollAnimations.js"></script>
+    <script src="../js/app.js"></script>
+</body>
+</html>

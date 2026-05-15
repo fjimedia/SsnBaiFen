@@ -1,0 +1,25 @@
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    border-radius: var(--radius-full);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.badge_gold {
+    background: rgba(212, 175, 55, 0.15);
+    color: var(--color-gold);
+}
+
+.badge_success {
+    background: rgba(42, 107, 42, 0.15);
+    color: var(--color-success);
+}
+
+.badge__icon {
+    font-size: 12px;
+}

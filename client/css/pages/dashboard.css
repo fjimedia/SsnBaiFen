@@ -1,0 +1,113 @@
+.dashboard {
+    margin-left: var(--left-panel-width);
+    padding: 40px;
+    background: var(--color-paper);
+    min-height: 100vh;
+}
+
+.dashboard__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.dashboard__greeting {
+    font-size: 28px;
+    color: var(--color-ink);
+}
+
+.dashboard__greeting span {
+    color: var(--color-primary);
+}
+
+.dashboard__stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.dashboard__stat {
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    padding: 25px;
+    box-shadow: var(--shadow-sm);
+    text-align: center;
+}
+
+.dashboard__stat-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+
+.dashboard__stat-value {
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-bottom: 4px;
+}
+
+.dashboard__stat-label {
+    font-size: 14px;
+    color: var(--color-ink-muted);
+}
+
+.dashboard__tree {
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    padding: 40px;
+    box-shadow: var(--shadow-md);
+    margin-bottom: 40px;
+}
+
+.dashboard__tree-title {
+    font-size: 24px;
+    margin-bottom: 30px;
+    color: var(--color-ink);
+}
+
+.dashboard__sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+}
+
+.dashboard__section {
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    padding: 30px;
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.dashboard__section:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.dashboard__section-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--color-primary-light);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: var(--color-primary);
+}
+
+.dashboard__section-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: var(--color-ink);
+}
+
+.dashboard__section-desc {
+    font-size: 14px;
+    color: var(--color-ink-light);
+    line-height: 1.6;
+}

@@ -1,0 +1,111 @@
+.popup {
+    position: fixed;
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    z-index: 2000;
+    display: none;
+    min-width: 300px;
+    max-width: 400px;
+    border: 3px solid var(--color-primary);
+}
+
+.popup_active {
+    display: block;
+    animation: fadeInUp 0.3s ease;
+}
+
+.popup__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.popup__character {
+    font-family: var(--font-chinese);
+    font-size: 48px;
+    color: var(--color-ink);
+}
+
+.popup__audio {
+    width: 50px;
+    height: 50px;
+    border-radius: var(--radius-full);
+    background: var(--color-primary);
+    color: var(--color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.popup__audio:hover {
+    transform: scale(1.1);
+}
+
+.popup__details {
+    margin-bottom: 25px;
+}
+
+.popup__pinyin {
+    font-size: 24px;
+    color: var(--color-primary);
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.popup__translation {
+    font-size: 18px;
+    color: rgba(45, 27, 0, 0.8);
+    margin-bottom: 15px;
+}
+
+.popup__example {
+    font-size: 16px;
+    color: rgba(45, 27, 0, 0.7);
+    font-style: italic;
+    padding: 15px;
+    background: var(--color-paper);
+    border-radius: var(--radius-sm);
+    line-height: 1.5;
+}
+
+.popup__actions {
+    display: flex;
+    gap: 10px;
+}
+
+.popup__btn {
+    flex: 1;
+    padding: 12px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: none;
+}
+
+.popup__btn_save {
+    background: var(--color-primary);
+    color: var(--color-white);
+}
+
+.popup__btn_save:hover {
+    background: var(--color-primary-hover);
+}
+
+.popup__btn_close {
+    background: var(--color-paper-dark);
+    color: var(--color-ink);
+}
+
+.popup__btn_close:hover {
+    background: var(--color-paper);
+}

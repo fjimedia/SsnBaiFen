@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SanBaiFen | 汉字之道</title>
     <style>
-        /* ===== СБРОС И БАЗОВЫЕ СТИЛИ ===== */
         * {
             margin: 0;
             padding: 0;
@@ -29,7 +28,6 @@
             position: relative;
         }
 
-        /* ===== ЛЕВАЯ ПАНЕЛЬ ===== */
         .left-panel {
             position: fixed;
             left: 0;
@@ -101,7 +99,6 @@
             transition: all 0.3s ease;
         }
 
-        /* ===== НАВИГАЦИОННАЯ ПАНЕЛЬ С ЭФФЕКТОМ СТЕКЛА ===== */
         .nav-panel {
             position: fixed;
             right: 19px;
@@ -138,7 +135,6 @@
             }
         }
 
-        /* Кнопка для открытия навигации (4 квадратика) */
         .nav-trigger {
             position: fixed;
             right: 19px;
@@ -172,7 +168,6 @@
             transform: rotate(45deg);
         }
 
-        /* Навигационные элементы */
         .nav-items {
             display: flex;
             justify-content: space-around;
@@ -231,7 +226,6 @@
             border-radius: 3px;
         }
 
-        /* ===== ГЕРОЙ-СЛАЙДЕР ===== */
         .hero-slider {
             margin-left: 170px;
             width: calc(100% - 170px);
@@ -240,7 +234,6 @@
             overflow: hidden;
         }
 
-        /* ===== СЛАЙД ===== */
         .slide {
             position: absolute;
             top: 0;
@@ -305,7 +298,6 @@
             font-family: 'Shantell Sans';
         }
 
-        /* Интерактивные карточки */
         .cards-container {
             display: flex;
             gap: 88px;
@@ -421,7 +413,6 @@
             transform: scale(1.1);
         }
 
-        /* Кнопка действия */
         .action-button {
             padding: 18px 50px;
             background: var(--primary-red);
@@ -445,7 +436,6 @@
             box-shadow: 0 10px 20px rgba(150, 40, 39, 0.3);
         }
 
-        /* Визуализатор аудио для слайда 2 */
         .audio-container {
             width: 700px;
             height: 300px;
@@ -462,7 +452,6 @@
             height: 100%;
         }
 
-        /* Текст контейнер для слайда 3 */
         .text-reader {
             width: 800px;
             height: 400px;
@@ -498,7 +487,6 @@
             text-decoration-color: var(--primary-red);
         }
 
-        /* ===== ПРОГРЕСС БАР (ЛИНИЯ) ===== */
         .progress-line {
             position: fixed;
             left: 170px;
@@ -519,7 +507,6 @@
             transition: width 0.3s ease;
         }
 
-        /* Кнопки навигации слайдера (круги по краям) */
         .slider-nav {
             position: fixed;
             bottom: 943px;
@@ -561,7 +548,6 @@
             transform: none;
         }
 
-        /* ===== ОСНОВНОЙ КОНТЕНТ (ПРИ ПРОКРУТКЕ ВНИЗ) ===== */
         .main-content {
             margin-left: 170px;
             width: calc(100% - 170px);
@@ -598,7 +584,6 @@
             font-family: 'Shantell Sans';
         }
 
-        /* Системные блоки */
         .system-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -648,7 +633,6 @@
             font-family: 'Shantell Sans';
         }
 
-        /* Награды и прогресс */
         .rewards-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -695,7 +679,6 @@
             line-height: 1.5;
         }
 
-        /* Процесс обучения */
         .process-steps {
             display: flex;
             flex-direction: column;
@@ -744,7 +727,6 @@
             line-height: 1.6;
         }
 
-        /* Цены */
         .pricing-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -819,7 +801,6 @@
             color: var(--primary-red);
         }
 
-        /* Кнопка "Попробовать" */
         .try-button {
             display: inline-block;
             padding: 18px 50px;
@@ -840,7 +821,6 @@
             box-shadow: 0 15px 30px rgba(150, 40, 39, 0.2);
         }
 
-        /* ===== АНИМАЦИИ ПРИ ПРОКРУТКЕ ===== */
         .animate-on-scroll {
             opacity: 0;
             transform: translateY(30px);
@@ -852,7 +832,6 @@
             transform: translateY(0);
         }
 
-        /* ===== ВСПЛЫВАЮЩЕЕ ОКНО ДЛЯ СЛОВ ===== */
         .word-popup {
             position: fixed;
             background: white;
@@ -941,7 +920,6 @@
             line-height: 1.5;
         }
 
-        /* ===== АДАПТИВНОСТЬ ===== */
         @media (max-width: 1200px) {
             .left-panel {
                 width: 100px;
@@ -1038,7 +1016,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Левая панель -->
     <div class="left-panel">
         <div class="logo" id="homeButton"><img src="assets/img/1 1.png" alt="SanBaiFen" ></div>
         <div class="social-grid">
@@ -1051,7 +1028,6 @@
         </div>
     </div>
 
-    <!-- Кнопка открытия навигации (4 квадратика) -->
     <div class="nav-trigger" id="navTrigger">
         <div class="nav-trigger-square"></div>
         <div class="nav-trigger-square"></div>
@@ -1059,7 +1035,6 @@
         <div class="nav-trigger-square"></div>
     </div>
 
-    <!-- Навигационная панель с эффектом стекла -->
     <div class="nav-panel" id="navPanel">
         <div class="nav-items">
             <a href="#" class="nav-item active" data-slide="0">Главная</a>
@@ -1070,9 +1045,7 @@
         </div>
     </div>
 
-    <!-- Герой-слайдер -->
     <div class="hero-slider" id="heroSlider">
-        <!-- Слайд 1: Карточки -->
         <div class="slide slide-1 active" id="slide1">
             <div class="slide-content">
                 <h1 class="main-title" id="title1">Интерактивные карточки</h1>
@@ -1154,7 +1127,6 @@
             </div>
         </div>
 
-        <!-- Слайд 2: Аудирование -->
         <div class="slide slide-2" id="slide2">
             <div class="slide-content">
                 <h1 class="main-title" id="title2">Иммерсивное аудирование</h1>
@@ -1175,7 +1147,6 @@
             </div>
         </div>
 
-        <!-- Слайд 3: Тексты -->
         <div class="slide slide-3" id="slide3">
             <div class="slide-content">
                 <h1 class="main-title" id="title3">Адаптированные тексты</h1>
@@ -1199,12 +1170,10 @@
         </div>
     </div>
 
-    <!-- Прогресс бар (линия) -->
     <div class="progress-line" id="progressLine">
         <div class="progress-fill" id="progressFill"></div>
     </div>
 
-    <!-- Кнопки навигации слайдера (круги) -->
     <button class="slider-nav prev" id="prevBtn">
         <div class="nav-circle">
             <i class="fas fa-chevron-left"></i>
@@ -1217,7 +1186,6 @@
         </div>
     </button>
 
-    <!-- Всплывающее окно для слов -->
     <div class="word-popup" id="wordPopup">
         <div class="popup-header">
             <div class="popup-character" id="popupChar">学</div>
@@ -1244,10 +1212,8 @@
         </div>
     </div>
 
-    <!-- Основной контент (при прокрутке вниз) -->
     <div class="main-content">
         <section class="content-section" id="about">
-            <!-- Система обучения -->
             <div class="section-header">
                 <h2 class="section-title">Система обучения SanBaiFen</h2>
                 <p class="section-subtitle">
@@ -1292,7 +1258,6 @@
                 </div>
             </div>
 
-            <!-- Процесс обучения -->
             <div class="section-header">
                 <h2 class="section-title">Процесс обучения</h2>
                 <p class="section-subtitle">
@@ -1338,7 +1303,6 @@
                 </div>
             </div>
 
-            <!-- Система рейтингов и наград -->
             <div class="section-header">
                 <h2 class="section-title">Система мотивации</h2>
                 <p class="section-subtitle">
@@ -1380,7 +1344,6 @@
                 </div>
             </div>
 
-            <!-- Тарифы -->
             <div class="section-header">
                 <h2 class="section-title">Выберите свой план</h2>
                 <p class="section-subtitle">
@@ -1431,7 +1394,6 @@
     </div>
 
     <script>
-        // ===== ГЛАВНЫЙ КЛАСС ПРИЛОЖЕНИЯ =====
         class SanBaiFenApp {
             constructor() {
                 this.currentSlide = 0;
@@ -1439,7 +1401,6 @@
                 this.isTransitioning = false;
                 this.navOpen = false;
                 
-                // Элементы
                 this.slides = document.querySelectorAll('.slide');
                 this.navItems = document.querySelectorAll('.nav-item');
                 this.navTrigger = document.getElementById('navTrigger');
@@ -1460,21 +1421,17 @@
                 this.setupScrollAnimations();
                 this.animateEntrance();
                 
-                // Автоматическое открытие навигации через 1 секунду
                 setTimeout(() => {
                     this.toggleNavigation();
                 }, 1000);
                 
-                // Обновляем прогресс
                 this.updateProgress();
             }
             
             setupEventListeners() {
-                // Навигация слайдера
                 this.prevBtn.addEventListener('click', () => this.goToSlide(this.currentSlide - 1));
                 this.nextBtn.addEventListener('click', () => this.goToSlide(this.currentSlide + 1));
                 
-                // Навигационные элементы
                 this.navItems.forEach((item, index) => {
                     item.addEventListener('click', (e) => {
                         e.preventDefault();
@@ -1486,33 +1443,28 @@
                     });
                 });
                 
-                // Кнопка открытия навигации
                 this.navTrigger.addEventListener('click', () => this.toggleNavigation());
                 
-                // Кнопка домой
                 this.homeButton.addEventListener('click', () => {
                     this.goToSlide(0);
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 });
                 
-                // Кнопки действия
                 document.querySelectorAll('.action-button').forEach((btn, index) => {
                     btn.addEventListener('click', () => {
                         this.animateButtonClick(btn);
-                        // В реальном приложении здесь будет переход к соответствующему разделу
                         setTimeout(() => {
                             if (index === 0) {
-                                this.goToSlide(1); // Переход к карточкам
+                                this.goToSlide(1);
                             } else if (index === 1) {
-                                this.goToSlide(2); // Переход к аудированию
+                                this.goToSlide(2);
                             } else {
-                                this.goToSlide(3); // Переход к текстам
+                                this.goToSlide(3);
                             }
                         }, 300);
                     });
                 });
                 
-                // Управление с клавиатуры
                 document.addEventListener('keydown', (e) => {
                     if (e.key === 'ArrowLeft') this.goToSlide(this.currentSlide - 1);
                     if (e.key === 'ArrowRight') this.goToSlide(this.currentSlide + 1);
@@ -1520,7 +1472,6 @@
                     if (e.key === ' ') this.toggleCardFlip();
                 });
                 
-                // Swipe для мобильных
                 let startX = 0;
                 const container = document.querySelector('.hero-slider');
                 
@@ -1538,7 +1489,6 @@
                     }
                 });
                 
-                // Закрытие попапа при клике вне его
                 document.addEventListener('click', (e) => {
                     const popup = document.getElementById('wordPopup');
                     if (!popup.contains(e.target) && !e.target.classList.contains('text-word')) {
@@ -1566,7 +1516,6 @@
                 
                 this.isTransitioning = true;
                 
-                // Скрываем текущий слайд с анимацией
                 const currentSlide = this.slides[this.currentSlide];
                 gsap.to(currentSlide, {
                     duration: 0.5,
@@ -1578,7 +1527,6 @@
                     }
                 });
                 
-                // Показываем новый слайд
                 setTimeout(() => {
                     const newSlide = this.slides[targetSlide];
                     newSlide.classList.add('active');
@@ -1596,14 +1544,12 @@
                         }
                     );
                     
-                    // Анимация элементов нового слайда
                     this.animateSlideContent(targetSlide);
                     
                     this.currentSlide = targetSlide;
                     this.updateNavigation();
                     this.updateProgress();
                     
-                    // Обновляем визуализатор для слайда аудирования
                     if (targetSlide === 1) {
                         this.startAudioVisualizer();
                     }
@@ -1622,7 +1568,6 @@
                     actionButton: slide.querySelector('.action-button')
                 };
                 
-                // Сброс позиций для анимации
                 if (elements.title) {
                     gsap.fromTo(elements.title,
                         { opacity: 0, y: 30 },
@@ -1682,7 +1627,6 @@
             }
             
             animateEntrance() {
-                // Анимация появления первого слайда
                 this.animateSlideContent(0);
             }
             
@@ -1698,7 +1642,6 @@
                         });
                     });
                     
-                    // Кнопка аудио на обратной стороне
                     const audioBtn = card.querySelector('.card-audio-btn');
                     if (audioBtn) {
                         audioBtn.addEventListener('click', function(e) {
@@ -1706,7 +1649,6 @@
                             const pinyin = card.querySelector('.card-pinyin').textContent;
                             this.playAudio(pinyin);
                             
-                            // Анимация кнопки
                             gsap.to(this, {
                                 duration: 0.2,
                                 scale: 0.9,
@@ -1719,7 +1661,6 @@
             }
             
             setupTextInteractions() {
-                // Обработчики для кликабельных слов в тексте
                 document.addEventListener('click', (e) => {
                     if (e.target.classList.contains('text-word')) {
                         const char = e.target.dataset.char;
@@ -1731,17 +1672,14 @@
                     }
                 });
                 
-                // Закрытие попапа
                 document.getElementById('closePopupBtn').addEventListener('click', () => {
                     this.hideWordPopup();
                 });
                 
-                // Сохранение слова
                 document.getElementById('saveWordBtn').addEventListener('click', () => {
                     this.saveWordToCards();
                 });
                 
-                // Озвучка слова в попапе
                 document.getElementById('popupAudioBtn').addEventListener('click', () => {
                     const pinyin = document.getElementById('popupPinyin').textContent;
                     this.playAudio(pinyin);
@@ -1752,23 +1690,18 @@
                 const popup = document.getElementById('wordPopup');
                 const rect = event.target.getBoundingClientRect();
                 
-                // Устанавливаем позицию попапа рядом со словом
                 popup.style.left = `${rect.left + rect.width / 2}px`;
                 popup.style.top = `${rect.bottom + 10}px`;
                 
-                // Заполняем данные
                 document.getElementById('popupChar').textContent = char;
                 document.getElementById('popupPinyin').textContent = pinyin;
                 document.getElementById('popupTranslation').textContent = translation;
                 document.getElementById('popupExample').innerHTML = `<strong>Пример:</strong> ${example}`;
                 
-                // Показываем попап
                 popup.classList.add('active');
                 
-                // Добавляем активный класс слову
                 event.target.classList.add('active');
                 
-                // Позиционируем попап, чтобы он не выходил за экран
                 this.positionPopup(popup);
             }
             
@@ -1776,7 +1709,6 @@
                 const popup = document.getElementById('wordPopup');
                 popup.classList.remove('active');
                 
-                // Убираем активный класс со всех слов
                 document.querySelectorAll('.text-word.active').forEach(word => {
                     word.classList.remove('active');
                 });
@@ -1787,7 +1719,6 @@
                 const windowWidth = window.innerWidth;
                 const windowHeight = window.innerHeight;
                 
-                // Проверяем, не выходит ли попап за пределы экрана
                 if (rect.right > windowWidth) {
                     popup.style.left = `${windowWidth - rect.width - 20}px`;
                 }
@@ -1810,7 +1741,6 @@
                 const pinyin = document.getElementById('popupPinyin').textContent;
                 const translation = document.getElementById('popupTranslation').textContent;
                 
-                // Создаем эффект добавления карточки
                 const notification = document.createElement('div');
                 notification.style.cssText = `
                     position: fixed;
@@ -1877,7 +1807,6 @@
                 function draw() {
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
                     
-                    // Рисуем волны
                     const waveCount = 8;
                     
                     for (let i = 0; i < waveCount; i++) {
@@ -1907,7 +1836,6 @@
                     animationId = requestAnimationFrame(draw);
                 }
                 
-                // Останавливаем предыдущую анимацию, если есть
                 if (this.visualizerAnimation) {
                     cancelAnimationFrame(this.visualizerAnimation);
                 }
@@ -1935,7 +1863,6 @@
                     repeat: 1
                 });
                 
-                // Эффект пульсации
                 const ripple = document.createElement('div');
                 ripple.style.cssText = `
                     position: absolute;
@@ -1971,7 +1898,6 @@
                     rootMargin: '0px 0px -100px 0px'
                 });
                 
-                // Наблюдаем за всеми элементами с анимацией
                 document.querySelectorAll('.animate-on-scroll').forEach(el => {
                     observer.observe(el);
                 });
@@ -1988,7 +1914,6 @@
                     utterance.rate = 0.8;
                     utterance.pitch = 1;
                     
-                    // Получаем доступные голоса
                     const voices = speechSynthesis.getVoices();
                     const chineseVoice = voices.find(voice => 
                         voice.lang.includes('zh') || voice.lang.includes('CN')
@@ -2003,11 +1928,9 @@
             }
             
             updateNavigation() {
-                // Обновляем кнопки навигации
                 this.prevBtn.disabled = this.currentSlide === 0;
                 this.nextBtn.disabled = this.currentSlide === this.totalSlides - 1;
                 
-                // Обновляем навигационные пункты
                 this.navItems.forEach((item, index) => {
                     if (index < this.totalSlides) {
                         item.classList.toggle('active', index === this.currentSlide);
@@ -2025,9 +1948,7 @@
             }
         }
         
-        // ===== ИНИЦИАЛИЗАЦИЯ ПРИЛОЖЕНИЯ =====
         document.addEventListener('DOMContentLoaded', () => {
-            // Загружаем GSAP если его нет
             if (typeof gsap === 'undefined') {
                 const script = document.createElement('script');
                 script.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js';
@@ -2040,14 +1961,12 @@
                 new SanBaiFenApp();
             }
             
-            // Загрузка голосов для синтеза речи
             if ('speechSynthesis' in window) {
                 speechSynthesis.getVoices();
             }
         });
     </script>
     
-    <!-- GSAP для анимаций -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 </body>
 </html>
